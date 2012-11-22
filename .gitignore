@@ -1,1 +1,4 @@
 *.pyc
+libs/bulkimport
+libs/mediaman
+deploy/SECRET
