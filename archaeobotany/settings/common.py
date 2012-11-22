@@ -55,12 +55,6 @@ MEDIA_URL = '/media/'
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
 from helpers import gen_secret_key
 
 ########## PATH CONFIGURATION
@@ -82,11 +76,13 @@ MEDIA_ROOT = normpath(join(DJANGO_ROOT, '../public/media'))
 # Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = normpath(join(DJANGO_ROOT, '../public/static'))
 
+
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    DJANGO_ROOT + '/static',
 )
 
 
@@ -141,9 +137,7 @@ ROOT_URLCONF = 'archaeobotany.urls'
 WSGI_APPLICATION = 'archaeobotany.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    DJANGO_ROOT + '/templates',
 )
 
 INSTALLED_APPS = (
@@ -158,8 +152,15 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
+# Third party apps
+    'easy_thumbnails',
+
 # Archaeobotany apps
     'apps.botanycollection',
+
+# Libs
+    'libs.bulkimport',
+    'libs.mediaman',
 
 )
 

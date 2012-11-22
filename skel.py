@@ -3,7 +3,7 @@
 Create Models Skeleton from XLS
 
 Usage:
-  skel <filename> <cols>
+  skel <filename> <cols> [<format>]
   skel -h | --help
   skel --version
 
@@ -11,20 +11,24 @@ Options:
   -h --help       Show this screen.
   --version       Show version.
   <cols>          Eg. A2:AK2
+  <format>        'mapping' for bulkimport mapping style
+                  'dd' for django template definition list format
+                  defaults to model.py style
 
 """
 from openpyxl import load_workbook
 from docopt import docopt
-from openpyxl.cell import get_column_letter
+#from openpyxl.cell import get_column_letter
+import string
 
 
-def print_cols(filename, cols):
+def print_cols(filename, cols, format):
     """
     Parse spreadsheet file and extract column headers
     """
     wb = load_workbook(filename)
     sheet = wb.get_sheet_by_name(wb.get_sheet_names()[0])
-    dimensions = sheet.calculate_dimension()
+#    dimensions = sheet.calculate_dimension()
     data = sheet.range(cols)
 
     high_row = sheet.get_highest_row()
@@ -38,15 +42,22 @@ def print_cols(filename, cols):
             except TypeError:
                 pass
 
-        new_name = cell.value.replace(' ', '_').replace('/', '_').replace('?',
-                '').replace('.', '').replace('&', '').lower()
+        original_name = cell.value
+        py_name = cell.value.replace(' ', '_').replace('/', '_').replace('?',
+                '').replace('.', '').replace('&', '').replace('-', '').lower()
+        py_name = string.strip(py_name, '_')
 
-        print "    %s = models.CharField(max_length=%d, blank=True)" % (new_name, max_len)
+        if format == 'mapping':
+            print "'%s': '%s'," % (original_name, py_name)
+        elif format == 'dd':
+            print "<dt>%s</dt>\n<dd>{{ object.%s }}</dd>\n\n" % (original_name, py_name)
+        else:
+            print "    %s = models.CharField(\"%s\", max_length=%d, blank=True)" % (py_name, original_name.lower(), max_len + 2)
 
 
 if __name__ == '__main__':
     arguments = docopt(__doc__, version="Models Skeleton 0.1")
 
     if '<filename>' in arguments:
-        print_cols(arguments['<filename>'], arguments['<cols>'])
+        print_cols(arguments['<filename>'], arguments['<cols>'], arguments['<format>'])
 
