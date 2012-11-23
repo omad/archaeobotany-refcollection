@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from admin_custom import botany_admin
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,3 +17,7 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/', include(botany_admin.urls)),
 )
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
