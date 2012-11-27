@@ -159,8 +159,8 @@ INSTALLED_APPS = (
     'apps.botanycollection',
 
 # Libs
-    'libs.bulkimport',
-    'libs.mediaman',
+    'bulkimport',
+    'mediaman',
 
 )
 
