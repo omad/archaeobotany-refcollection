@@ -24,6 +24,16 @@
     <div class="navbar-inner">
       <div class="container">
         <a class="brand" href="/">UQ Archeobotany Reference Collection</a>
+
+        <ul class="nav pull-right">
+          {% if user.is_authenticated %}
+            <li class="navbar-text">Logged in as: <b>{{ user.username }}</b></li>
+            <li><a href="/admin/logout/">Logout</a></li>
+            <li><a href="/admin/">Admin</a></li>
+          {% else %}
+            <li><a href="/admin/">Login</a></li>
+          {% endif %}
+        </ul>
       </div>
     </div>
   </div>
