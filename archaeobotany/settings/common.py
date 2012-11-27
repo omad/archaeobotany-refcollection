@@ -154,6 +154,7 @@ INSTALLED_APPS = (
 
 # Third party apps
     'easy_thumbnails',
+    'gunicorn',
 
 # Archaeobotany apps
     'apps.botanycollection',
