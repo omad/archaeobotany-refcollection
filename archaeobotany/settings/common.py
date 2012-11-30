@@ -158,6 +158,7 @@ INSTALLED_APPS = (
 
 # Archaeobotany apps
     'apps.botanycollection',
+    'apps.home',
 
 # Libs
     'bulkimport',

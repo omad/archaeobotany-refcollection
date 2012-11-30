@@ -8,7 +8,9 @@ urlpatterns = patterns('',
     # url(r'^$', 'archaeobotany.views.home', name='home'),
     # url(r'^archaeobotany/', include('archaeobotany.foo.urls')),
 
-    url('', include('apps.botanycollection.urls')),
+    url('', include('apps.home.urls')),
+
+    url('archaeobotany', include('apps.botanycollection.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
