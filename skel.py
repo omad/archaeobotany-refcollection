@@ -4,16 +4,18 @@ Create Models Skeleton from XLS
 
 Usage:
   skel <filename> <cols> [<format>]
+  skel -d <filename>
   skel -h | --help
   skel --version
 
 Options:
-  -h --help       Show this screen.
-  --version       Show version.
-  <cols>          Eg. A2:AK2
-  <format>        'mapping' for bulkimport mapping style
-                  'dd' for django template definition list format
-                  defaults to model.py style
+  -h --help        Show this screen.
+  --version        Show version.
+  -d --dimensions  Print spreadsheet dimensions
+  <cols>           Eg. A2:AK2
+  <format>         'mapping' for bulkimport mapping style
+                   'html' for django template definition list format
+                   defaults to model.py style
 
 """
 from openpyxl import load_workbook
@@ -49,15 +51,24 @@ def print_cols(filename, cols, format):
 
         if format == 'mapping':
             print "'%s': '%s'," % (original_name, py_name)
-        elif format == 'dd':
+        elif format == 'html':
             print "<dt>%s</dt>\n<dd>{{ object.%s }}</dd>\n\n" % (original_name, py_name)
         else:
             print "    %s = models.CharField(\"%s\", max_length=%d, blank=True)" % (py_name, original_name.lower(), max_len + 2)
+
+
+def print_dimensions(filename):
+    wb = load_workbook(filename)
+    sheet = wb.get_sheet_by_name(wb.get_sheet_names()[0])
+    print sheet.calculate_dimension()
 
 
 if __name__ == '__main__':
     arguments = docopt(__doc__, version="Models Skeleton 0.1")
 
     if '<filename>' in arguments:
-        print_cols(arguments['<filename>'], arguments['<cols>'], arguments['<format>'])
+        if arguments['--dimensions']:
+            print_dimensions(arguments['<filename>'])
+        else:
+            print_cols(arguments['<filename>'], arguments['<cols>'], arguments['<format>'])
 
