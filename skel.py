@@ -52,7 +52,12 @@ def print_cols(filename, cols, format):
         if format == 'mapping':
             print "'%s': '%s'," % (original_name, py_name)
         elif format == 'html':
-            print "<dt>%s</dt>\n<dd>{{ object.%s }}</dd>\n\n" % (original_name, py_name)
+            print """{%% if object.%(prop)s %%}
+            <dt>%(title)s</dt>
+            <dd>{{ object.%(prop)s }}</dd>
+{%% endif %%}
+
+            """ % {'title': original_name, 'prop': py_name}
         else:
             print "    %s = models.CharField(\"%s\", max_length=%d, blank=True)" % (py_name, original_name.lower(), max_len + 2)
 
