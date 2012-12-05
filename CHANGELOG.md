@@ -1,8 +1,6 @@
 
 ## 0.3.0 (future)
 ### Todo
- * Image metadata
- * Image filmstrip
  * Browse like http://apsa.anu.edu.au/family
    * BURSERACEAE Canarium is a good example
  * Add search
@@ -38,6 +36,8 @@
  * Detail page: Retitle Anatomical description to Specimen description
  * Models
    * Use filemaker pro forma to import Wood
+ * Image filmstrip
+ * Image metadata
 
 
 
