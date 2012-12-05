@@ -56,3 +56,12 @@ table.dataTable th:active { outline: none; }
     margin-left: auto;
     margin-right: auto;
 }
+
+
+/*************************
+ Ad-gallery
+ *************************/
+.ad-image {overflow: visible;}
+.ad-image .ad-image-description {position: static;}
+.ad-gallery { width: 384px; }
+.ad-gallery .ad-image-wrapper { height: 256px; }
